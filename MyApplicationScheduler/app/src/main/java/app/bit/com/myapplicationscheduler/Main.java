@@ -5,12 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,6 +18,7 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         final Context ctx = Main.this;
+        //class MyDate { String year,month,day,hour,minute;}
         TextView today = findViewById(R.id.today);
         today.setText(new SimpleDateFormat("yyyy MM dd kk:mm:ss").format(new Date()));
         CalendarView calender = findViewById(R.id.calender);
@@ -30,9 +28,11 @@ public class Main extends AppCompatActivity {
         TextView day = findViewById(R.id.day);
         TextView hour = findViewById(R.id.hour);
         TextView minute = findViewById(R.id.minute);
-        TextView second = findViewById(R.id.second);
         calender.setVisibility(View.VISIBLE);
         time.setVisibility(View.INVISIBLE);
+
+       // final MyDate m = new MyDate();
+
         findViewById(R.id.rdoCalendar).setOnClickListener(
                 (View v)->{
                     calender.setVisibility(View.VISIBLE);
@@ -56,18 +56,21 @@ public class Main extends AppCompatActivity {
                             day.getText().toString(),
                             hour.getText().toString(),
                             minute.getText().toString());
+
                 }
         );
         calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 TextView y = findViewById(R.id.year);
-                TextView m = findViewById(R.id.month);
+                TextView mon = findViewById(R.id.month);
                 TextView day = findViewById(R.id.day);
                 y.setText(year+"");
-                m.setText(month+"");
+                mon.setText((month+1)+"");
                 day.setText(dayOfMonth+"");
-
+              /*  m.year = year+"";
+                m.month = month+"";
+                m.day = dayOfMonth+"";*/
             }
         });
         time.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -75,7 +78,7 @@ public class Main extends AppCompatActivity {
             public void onTimeChanged(@NonNull TimePicker view, int hourOfDay, int minute) {
                 TextView h = findViewById(R.id.hour);
                 TextView m = findViewById(R.id.minute);
-                h.setText(hourOfDay+"");
+                h.setText((hourOfDay)+"");
                 m.setText(minute+"");
             }
         });

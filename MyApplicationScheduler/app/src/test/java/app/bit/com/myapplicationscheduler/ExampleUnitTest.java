@@ -2,6 +2,13 @@ package app.bit.com.myapplicationscheduler;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
+
 import static org.junit.Assert.*;
 
 /**
@@ -10,6 +17,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
