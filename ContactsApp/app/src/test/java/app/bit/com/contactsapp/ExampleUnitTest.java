@@ -35,7 +35,22 @@ public class ExampleUnitTest {
         }
 
         //마지막 버스
-
+        for(int j=leftCrew;j-leftCrew<m-1&&j<crew;){
+            if(Integer.parseInt(timetable[j].split("\\:")[0])<=busHour
+                    &&Integer.parseInt(timetable[j].split("\\:")[1])<=busMin){
+                j++;
+                leftCrew++;
+            }
+        }
+        String a = timetable[leftCrew];
+        String b = timetable[leftCrew+1];
+        String[] time = b.split(":");
+        if(time[1].equals("59")){
+            answer = (Integer.parseInt(time[0])+1)+":00";
+            String.format("%02d:00",Integer.parseInt(time[0])+1);
+        }else{
+            answer = time[0] +":"+ (Integer.parseInt(time[1])+1);
+        }
 
 
 

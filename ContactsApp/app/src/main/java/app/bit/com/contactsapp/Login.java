@@ -22,17 +22,17 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         final Context ctx = Login.this;
-        findViewById(R.id.loginBtn).setOnClickListener(
+        findViewById(R.id.login_btn).setOnClickListener(
                 (View v)->{
-                    ItemExist exist = new ItemExist(ctx); //객체 생성시 ctx를 줘서 인접한 장소에 생성시키기
+                    ItemExist query = new ItemExist(ctx); //객체 생성시 ctx를 줘서 인접한 장소에 생성시키기
                     EditText x = findViewById(R.id.inputId);
                     EditText y = findViewById(R.id.inputPass);
-                    exist.id = x.getText().toString();
-                    exist.pw = y.getText().toString();
+                    query.id = x.getText().toString();
+                    query.pw = y.getText().toString();
                     new Main.StatusService(){
                         @Override
                         public void perform() {
-                            if(exist.execute()){
+                            if(query.execute()){
                                 Toast.makeText(ctx, "로그인 성공", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(ctx,List.class));
                             }else{

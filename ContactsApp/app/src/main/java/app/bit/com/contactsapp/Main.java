@@ -16,24 +16,15 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         final Context ctx = Main.this;
-        findViewById(R.id.createDB).setOnClickListener(
-                (View v)->{
-                   SQLiteHelper helper = new SQLiteHelper(ctx);
-                }
-        );
 
-        findViewById(R.id.maintToAdd).setOnClickListener(
+        findViewById(R.id.moveLogin).setOnClickListener(
                 (View v)->{
-                    startActivity(new Intent(ctx,Add.class));
-                }
-        );
-
-        findViewById(R.id.login).setOnClickListener(
-                (View v)->{
+                    SQLiteHelper helper = new SQLiteHelper(ctx);
                     startActivity(new Intent(ctx,Login.class));
                 }
         );
     }
+
     static class Member{int seq;String name, pw, email, phone, addr, photo;}
     static interface StatusService{public void perform();}
     static interface ListService{public List<?> perform();}
@@ -73,10 +64,10 @@ public class Main extends AppCompatActivity {
             Log.d("실행할 쿼리 :: ",sql);
             db.execSQL(sql);
             Log.d("===========================","create 쿼리실행 완료");
-            String[] names = {"hong","kim","lee","kang","choi"};
-            String[] emails = {"hong@gmail.com","kim@gmail.com","lee@gmail.com","kang@gmail.com","choi@gmail.com"};
+            String[] names = {"kimyoouna","junghyungdon","suae","curry","durant"};
+            String[] emails = {"kimyoouna@gmail.com","jung@gmail.com","suae@gmail.com","curry@gmail.com","durant@gmail.com"};
             String[] phones = {"010-2354-3402","010-6545-4562","010-4562-9086","010-1324-3452","010-2323-4562"};
-            String[] addrs = {"seoul","paju","ilsan","jeju","la"};
+            String[] addrs = {"seoul","paju","ilsan","ohio","texas"};
             for(int i=0;i<5;i++){
                 db.execSQL(String.format(
                         "INSERT INTO %s " +
@@ -85,7 +76,7 @@ public class Main extends AppCompatActivity {
                                 "('%s', '%s', '%s', '%s', '%s', '%s') ",
                         MEMTAB,
                         MEMNAME,MEMPW,MEMEMAIL,MEMPHONE,MEMADDR,MEMPHOTO,
-                        names[i],"1",emails[i],phones[i],addrs[i],"default.jpg"
+                        names[i],"1",emails[i],phones[i],addrs[i],"profile_"+(i+1)
                 ));
             }
             Log.d("===========================","insert 쿼리실행 완료");
