@@ -7,4 +7,10 @@
         android:id="@+id/memberList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
+    <Button
+        android:id="@+id/addBtn"
+        android:text="친구추가"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

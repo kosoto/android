@@ -41,7 +41,7 @@ public class Detatil extends AppCompatActivity{
                         .getDrawable(getResources()
                                 .getIdentifier(
                                         getPackageName()
-                                                +":drawable/"+m.photo,null,null),getTheme()));
+                                                +":drawable/"+m.photo,null,null),ctx.getTheme()));
         TextView name = findViewById(R.id.name);
         name.setText(m.name);
         TextView email = findViewById(R.id.email);
@@ -51,9 +51,57 @@ public class Detatil extends AppCompatActivity{
         TextView addr = findViewById(R.id.addr);
         addr.setText(m.addr);
 
-        findViewById(R.id.detailToList).setOnClickListener(
+        findViewById(R.id.listBtn).setOnClickListener(
                 (View v)->{
                     startActivity(new Intent(ctx,List.class));
+                }
+        );
+
+        findViewById(R.id.updateBtn).setOnClickListener(
+                (View v)->{
+                    Intent moveUpdate = new Intent(ctx,Update.class);
+                    moveUpdate.putExtra("seq",m.seq);
+                    startActivity(moveUpdate);
+                }
+        );
+        findViewById(R.id.callBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.dialBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.smsBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.emailBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.albumBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.movieBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.mapBtn).setOnClickListener(
+                (View v)->{
+
+                }
+        );
+        findViewById(R.id.musicBtn).setOnClickListener(
+                (View v)->{
+
                 }
         );
 
