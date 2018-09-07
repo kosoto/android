@@ -85,7 +85,6 @@ public class List extends AppCompatActivity{
             }
             return list;
         }
-
     }
     private class MemberAdapter extends BaseAdapter{
         java.util.List<Member> list;
@@ -95,6 +94,7 @@ public class List extends AppCompatActivity{
             this.list = list;
             this.inflater = LayoutInflater.from(ctx);
         }
+
         private int[] photos = {
                 R.drawable.profile_1,
                 R.drawable.profile_2,

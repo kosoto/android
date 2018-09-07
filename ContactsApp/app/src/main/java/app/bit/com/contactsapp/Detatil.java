@@ -27,26 +27,29 @@ public class Detatil extends AppCompatActivity{
         setContentView(R.layout.detatil);
         final Context ctx = Detatil.this;
         ItemRetrieve query = new ItemRetrieve(ctx);
-        query.id = getIntent().getIntExtra("seq",0);
+        Intent intent = getIntent();
+        query.id = intent.getIntExtra("seq",0);
         Main.Member m = (Main.Member) new Main.RetrieveService(){
             @Override
             public Object perform() {
                 return query.excute();
             }
         }.perform();
-        Log.d("검색한 이름 ::",m.name);
-
-        TextView name = findViewById(R.id.name);
-        TextView email = findViewById(R.id.email);
-        TextView phone = findViewById(R.id.phone);
-        TextView addr = findViewById(R.id.addr);
         ImageView profile = findViewById(R.id.profile);
+        profile.setImageDrawable(
+                getResources()
+                        .getDrawable(getResources()
+                                .getIdentifier(
+                                        getPackageName()
+                                                +":drawable/"+m.photo,null,null),getTheme()));
+        TextView name = findViewById(R.id.name);
         name.setText(m.name);
+        TextView email = findViewById(R.id.email);
         email.setText(m.email);
+        TextView phone = findViewById(R.id.phone);
         phone.setText(m.phone);
+        TextView addr = findViewById(R.id.addr);
         addr.setText(m.addr);
-        String img = m.photo;
-        profile.setImageResource(R.drawable.profile_1);
 
         findViewById(R.id.detailToList).setOnClickListener(
                 (View v)->{
