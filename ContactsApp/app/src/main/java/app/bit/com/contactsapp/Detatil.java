@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import app.bit.com.contactsapp.util.PhoneUtil;
 
 import static app.bit.com.contactsapp.Main.MEMADDR;
 import static app.bit.com.contactsapp.Main.MEMEMAIL;
@@ -25,7 +28,7 @@ public class Detatil extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detatil);
-        final Context ctx = Detatil.this;
+        final Context ctx = Detatil.this; //객체에서 속성값(설정값) 만을 담음.
         ItemRetrieve query = new ItemRetrieve(ctx);
         Intent intent = getIntent();
         query.id = intent.getIntExtra("seq",0);
@@ -66,12 +69,17 @@ public class Detatil extends AppCompatActivity{
         );
         findViewById(R.id.callBtn).setOnClickListener(
                 (View v)->{
-
+                    PhoneUtil util = new PhoneUtil(ctx,this);
+                    util.setPhoneNum(phone.getText().toString());
+                    util.call();
                 }
         );
         findViewById(R.id.dialBtn).setOnClickListener(
                 (View v)->{
-
+                    PhoneUtil util = new PhoneUtil(ctx,this); //ctx 위치에 this의 기능을 가진 객체 생성
+                    Toast.makeText(ctx, "전화번호 : "+phone.getText().toString(), Toast.LENGTH_LONG).show();
+                    util.setPhoneNum(phone.getText().toString());
+                    util.dial();
                 }
         );
         findViewById(R.id.smsBtn).setOnClickListener(

@@ -35,6 +35,7 @@ public class Add extends AppCompatActivity {
                 }
         );
         ItemCreate query = new ItemCreate(ctx);
+        ImageView profile = findViewById(R.id.profile);
         findViewById(R.id.profileBtn).setOnClickListener(
                 (View view)->{
                     Toast.makeText(ctx, "이미지 추가 버튼 누름", Toast.LENGTH_SHORT).show();
@@ -49,9 +50,17 @@ public class Add extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         query.m.photo = img.getText().toString();
                                         ((Button) view).setText(img.getText().toString());
+
+                                        profile.setImageDrawable(getResources().getDrawable(
+                                                getResources().getIdentifier(
+                                                        ctx.getPackageName()+":drawable/"+img.getText().toString(),
+                                                        null,null
+                                                ),ctx.getTheme()
+                                        ));
                                     }
                                 }
                         ).show();
+
                     Toast.makeText(ctx, img.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
         );
@@ -75,8 +84,6 @@ public class Add extends AppCompatActivity {
                     startActivity(new Intent(ctx,List.class));
                 }
         );
-
-
     }
 
     private class CreateQuery extends Main.QueryFactory {

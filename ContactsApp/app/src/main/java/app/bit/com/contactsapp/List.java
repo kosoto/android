@@ -137,19 +137,13 @@ public class List extends AppCompatActivity{
     private class MemberAdapter extends BaseAdapter{
         java.util.List<Member> list;
         LayoutInflater inflater;
+        Context ctx;
 
         public MemberAdapter(Context ctx, java.util.List<Member> list) {
             this.list = list;
             this.inflater = LayoutInflater.from(ctx);
+            this.ctx = ctx;
         }
-
-        private int[] photos = {
-                R.drawable.profile_1,
-                R.drawable.profile_2,
-                R.drawable.profile_3,
-                R.drawable.profile_4,
-                R.drawable.profile_6
-        };
 
         @Override
         public int getCount() {
@@ -179,7 +173,22 @@ public class List extends AppCompatActivity{
             }else{
                 holder = (ViewHolder) v.getTag();
             }
-            holder.profile.setImageResource(photos[i]);
+            ItemProfile query = new ItemProfile(ctx);
+            query.seq = list.get(i).seq+"";
+            holder.profile.setImageDrawable(
+                    getResources().getDrawable(
+                            getResources().getIdentifier(
+                                    ctx.getPackageName()+":drawable/"
+                                            + (new RetrieveService() {
+                                        @Override
+                                        public Object perform() {
+                                            return query.execute();
+                                        }
+                                    }.perform())
+                                    , null, null
+                            ), ctx.getTheme()
+                    )
+            );
             holder.name.setText(list.get(i).name);
             holder.phone.setText(list.get(i).phone);
             return v;
@@ -188,6 +197,37 @@ public class List extends AppCompatActivity{
     static class ViewHolder{
         ImageView profile;
         TextView name, phone;
+    }
+    private class profileQuery extends QueryFactory{
+        SQLiteHelper helper;
+        public profileQuery(Context ctx) {
+            super(ctx);
+            helper = new SQLiteHelper(ctx);
+        }
+
+        @Override
+        public SQLiteDatabase getDatabase() {
+            return helper.getReadableDatabase();
+        }
+    }
+    private class ItemProfile extends profileQuery {
+        String seq;
+        public ItemProfile(Context ctx) {
+            super(ctx);
+        }
+        public String execute(){
+            String res = "";
+            Cursor c = getDatabase()
+                    .rawQuery(String.format(
+                            " SELECT %s FROM %s WHERE %s LIKE '%s' "
+                            , MEMPHOTO, MEMTAB, MEMSEQ, seq),null);
+            if(c != null){
+                if(c.moveToNext()){
+                    res = c.getString(c.getColumnIndex(MEMPHOTO));
+                }
+            }
+            return  res;
+        }
     }
 
     private class DeleteQuery extends QueryFactory{
